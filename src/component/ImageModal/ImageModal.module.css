@@ -1,0 +1,20 @@
+.modalContent {
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.modalImage {
+  max-width: 100%;
+  max-height: calc(80vh - 50px); /* 50px высота кнопки закрытия */
+  display: block;
+  margin: 0 auto;
+}

@@ -1,0 +1,30 @@
+.searchBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: rgb(64, 30, 253);
+  color: black;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  padding: 10px;
+}
+.input {
+  width: 350px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid #111111;
+}
+.button {
+  border-radius: 100%;
+  width: 35px;
+  height: 35px;
+  padding: 0;
+}
+.icon {
+  height: 20px;
+  width: 20px;
+}
