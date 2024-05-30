@@ -1,15 +1,21 @@
+import React, { FC } from "react";
 import ImageCard from "../ImageCard/ImageCard";
-import css from './ImageGallery.module.css';
-import React from "react";
+import { Img } from "../../types";
+import css from './ImageGallery.module.css'
 
-export default function ImageGallery({ images, onImgClick  }) {
-    return (
-        <ul className={css.gallery}>
-            {images.map((image) => (
-                <li key={image.id}>
-                    <ImageCard img={image} onImgClick={onImgClick} />
-                </li>
-            ))}
-        </ul>
-    );
+interface ImageGalleryProps {
+    images: Img[];
+    onImgClick: (index: number) => void;
 }
+
+const ImageGallery: FC<ImageGalleryProps> = ({ images, onImgClick }) => {
+    return (
+        <div className={css.gallery}>
+            {images.map((img, index) => (
+                <ImageCard key={img.id} img={img} onImgClick={() => onImgClick(index)} />
+            ))}
+        </div>
+    );
+};
+
+export default ImageGallery;

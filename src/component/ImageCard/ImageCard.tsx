@@ -2,16 +2,22 @@ import css from './ImageCard.module.css';
 import React, { FC } from "react";
 import { Img } from '../../types';
 
-interface ImageProps{
+interface ImageProps {
     img: Img;
-    onImgClick:(id: number) => void;
+    onImgClick: () => void;
 }
 
- const ImageCard:FC<ImageProps>=({ img, onImgClick }) =>{
+const ImageCard: FC<ImageProps> = ({ img, onImgClick }) => {
     return (
-        <div className={css.container} >
-            <img className={css.image} src={img.urls.small} onClick={() => onImgClick(img.urls.regular)} alt={img.alt_description} />
+        <div className={css.container}>
+            <img
+                className={css.image}
+                src={img.urls.small}
+                onClick={onImgClick}
+                alt={img.alt_description}
+            />
         </div>
     );
 }
-export default ImageCard
+
+export default ImageCard;

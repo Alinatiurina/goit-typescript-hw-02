@@ -1,6 +1,6 @@
 import SearchBar from "./component/SearchBar/SearchBar";
-import {useEffect, useState } from "react";
-import  fetchImages  from "./images-api";
+import { useEffect, useState } from "react";
+import fetchImages from "./images-api";
 import ErrorMessage from "./component/ErrorMessage/ErrorMessage";
 import ImageGallery from "./component/ImageGallery/ImageGallery";
 import Loader from "./component/Loader/Loader";
@@ -16,15 +16,15 @@ export default function App() {
     const [page, setPage] = useState<number>(1);
     const [query, setQuery] = useState<string>('');
     const [modal, setModal] = useState<boolean>(false);
-    const [imgUrl, setImgUrl] = useState<string | null>(null);
+    const [currentImgIndex, setCurrentImgIndex] = useState<number | null>(null);
 
-     const handleSearch = async (newQuery: string): Promise<void> => {
+    const handleSearch = async (newQuery: string): Promise<void> => {
         setQuery(newQuery);
         setPage(1);
         setImages([]);
     };
 
-    const handleLoadMore = ():void => {
+    const handleLoadMore = (): void => {
         setPage(page + 1);
     };
 
@@ -32,7 +32,7 @@ export default function App() {
         if (query === '') {
             return;
         }
-        
+
         const getImage = async (): Promise<void> => {
             try {
                 setError(false);
@@ -45,16 +45,29 @@ export default function App() {
                 setIsLoading(false);
             }
         };
+
         getImage();
     }, [page, query]);
 
-    const openModal = (url: string):void => {
-        setImgUrl(url);
+    const openModal = (index: number): void => {
+        setCurrentImgIndex(index);
         setModal(true);
     };
 
-    const closeModal = ():void => {
+    const closeModal = (): void => {
         setModal(false);
+    };
+
+    const showNextImage = (): void => {
+        if (currentImgIndex !== null && currentImgIndex < images.length - 1) {
+            setCurrentImgIndex(currentImgIndex + 1);
+        }
+    };
+
+    const showPrevImage = (): void => {
+        if (currentImgIndex !== null && currentImgIndex > 0) {
+            setCurrentImgIndex(currentImgIndex - 1);
+        }
     };
 
     return (
@@ -64,7 +77,15 @@ export default function App() {
             {images.length > 0 && <ImageGallery images={images} onImgClick={openModal} />}
             {isLoading && <Loader />}
             {images.length > 0 && !isLoading && <LoadMoreBtn loadMore={handleLoadMore} />}
-            <ModalWindow image={imgUrl} imgModal={modal} onModalClose={closeModal} />
+            {modal && currentImgIndex !== null && (
+                <ModalWindow
+                    image={images[currentImgIndex]}
+                    imgModal={modal}
+                    onModalClose={closeModal}
+                    onNext={showNextImage}
+                    onPrev={showPrevImage}
+                />
+            )}
         </>
     );
 }

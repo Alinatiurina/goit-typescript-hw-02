@@ -1,12 +1,8 @@
 import Modal from 'react-modal';
 import css from "./ImageModal.module.css";
-import React, { FC } from "react";
-
-interface ImageModalProps {
-    image: string | null;
-    imgModal: boolean;
-    onModalClose: () => void;
-}
+import React from "react";
+import { Img } from '../../types';
+import { FaChevronLeft, FaChevronRight, FaTimes } from 'react-icons/fa';
 
 Modal.setAppElement('#root');
 
@@ -29,15 +25,35 @@ const customStyles = {
   }
 };
 
-const ImageModal: FC<ImageModalProps> = ({ image, imgModal, onModalClose }) => {
-    return (
-        <Modal isOpen={imgModal} onRequestClose={onModalClose} style={customStyles}>
-            <div className={css.modalContent}>
-                <button className={css.closeButton} onClick={onModalClose}>Close</button>
-                {image && <img src={image} alt="modal" className={css.modalImage} />}
-            </div>
-        </Modal>
-    );
+interface ModalWindowProps {
+    image: Img | null;
+    imgModal: boolean;
+    onModalClose: () => void;
+    onNext: () => void;
+    onPrev: () => void;
 }
+
+const ImageModal: React.FC<ModalWindowProps> = ({ image, imgModal, onModalClose, onNext, onPrev }) => {
+  if (!image) {
+    return null;
+  }
+
+  return (
+    <Modal isOpen={imgModal} onRequestClose={onModalClose} style={customStyles}>
+      <div className={css.modalContent}>
+        <button className={css.closeButton} onClick={onModalClose}>
+          <FaTimes />
+        </button>
+        <button className={css.prevButton} onClick={onPrev}>
+          <FaChevronLeft />
+        </button>
+        <img src={image.urls.regular} alt={image.alt_description} className={css.modalImage} />
+        <button className={css.nextButton} onClick={onNext}>
+          <FaChevronRight />
+        </button>
+      </div>
+    </Modal>
+  );
+};
 
 export default ImageModal;
