@@ -10,7 +10,7 @@ import React from "react";
 import { Img } from "./types";
 
 export default function App() {
-    const [images, setImages] = useState<Image[]>([]);
+    const [images, setImages] = useState<Img[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
     const [page, setPage] = useState<number>(1);
@@ -18,7 +18,7 @@ export default function App() {
     const [modal, setModal] = useState<boolean>(false);
     const [imgUrl, setImgUrl] = useState<string | null>(null);
 
-    const handleSearch = async (newQuery: string) => {
+     const handleSearch = async (newQuery: string): Promise<void> => {
         setQuery(newQuery);
         setPage(1);
         setImages([]);
@@ -33,7 +33,7 @@ export default function App() {
             return;
         }
         
-        async function getImage() {
+        const getImage = async (): Promise<void> => {
             try {
                 setError(false);
                 setIsLoading(true);
@@ -44,7 +44,7 @@ export default function App() {
             } finally {
                 setIsLoading(false);
             }
-        }
+        };
         getImage();
     }, [page, query]);
 

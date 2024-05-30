@@ -14,7 +14,7 @@
 
 .modalImage {
   max-width: 100%;
-  max-height: calc(80vh - 50px); /* 50px высота кнопки закрытия */
+  max-height: calc(80vh - 50px);
   display: block;
   margin: 0 auto;
 }
