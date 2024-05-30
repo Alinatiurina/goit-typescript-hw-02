@@ -1,5 +1,12 @@
 import Modal from 'react-modal';
 import css from "./ImageModal.module.css";
+import React, { FC } from "react";
+
+interface ImageModalProps {
+    image: string | null;
+    imgModal: boolean;
+    onModalClose: () => void;
+}
 
 Modal.setAppElement('#root');
 
@@ -22,13 +29,15 @@ const customStyles = {
   }
 };
 
-export default function ImageModal({ image, imgModal, onModalClose }) {
-  return (
-    <Modal isOpen={imgModal} onRequestClose={onModalClose} style={customStyles}>
-      <div className={css.modalContent}>
-        <button className={css.closeButton} onClick={onModalClose}>Close</button>
-        <img src={image} alt="modal" className={css.modalImage} />
-      </div>
-    </Modal>
-  );
+const ImageModal: FC<ImageModalProps> = ({ image, imgModal, onModalClose }) => {
+    return (
+        <Modal isOpen={imgModal} onRequestClose={onModalClose} style={customStyles}>
+            <div className={css.modalContent}>
+                <button className={css.closeButton} onClick={onModalClose}>Close</button>
+                {image && <img src={image} alt="modal" className={css.modalImage} />}
+            </div>
+        </Modal>
+    );
 }
+
+export default ImageModal;

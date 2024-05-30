@@ -1,6 +1,8 @@
 import { ColorRing } from 'react-loader-spinner';
-import css from './Loader.module.css'
-export default function Loader() {
+import css from './Loader.module.css';
+import React, { FC } from 'react';
+
+const Loader:FC=()=> {
     return (
         <ColorRing
             className={css.loader}
@@ -13,3 +15,4 @@ export default function Loader() {
             colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
         />);
 }
+export default Loader
